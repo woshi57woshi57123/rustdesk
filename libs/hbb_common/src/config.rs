@@ -2595,7 +2595,7 @@ mod tests {
         let wrong_type_str = r#"
         id = true
         enc_id = []
-        password = 1
+        password = 2
         salt = "123456"
         key_pair = {}
         key_confirmed = "1"
