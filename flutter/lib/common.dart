@@ -3531,7 +3531,7 @@ isOptionFixed(String key) => bind.mainIsOptionFixed(key: key);
 bool? _isCustomClient;
 bool get isCustomClient {
   _isCustomClient ??= bind.isCustomClient();
-  return _isCustomClient!;
+  return true;
 }
 
 get defaultOptionLang => isCustomClient ? 'default' : '';
