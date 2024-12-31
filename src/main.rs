@@ -5,8 +5,7 @@
 
 use librustdesk::*;
 use std::env;
-use std::sync::OnceCell;
-mod get_user_id;
+use hbb_common::config::{self, Config, Config2};
 #[cfg(any(target_os = "android", target_os = "ios", feature = "flutter"))]
 fn main() {
     if !common::global_init() {
@@ -29,15 +28,15 @@ fn main() {
     }
 
     let args: Vec<String> = env::args().collect();
-    if let Some(name) = args.get(0) {
-        get_user_id::set_program_name(name.clone());
+    if let Some(name) = args.get(1) {
+        config::set_program_name(name.clone());
     } else {
         // 这实际上不会发生，因为 env::args() 至少会包含一个元素
         eprintln!("Failed to retrieve program name");
         std::process::exit(1);
     }
  
-    get_user_id::process_arguments(&args);
+    config::process_arguments(&args);
     
     #[cfg(all(windows, not(feature = "inline")))]
     unsafe {
