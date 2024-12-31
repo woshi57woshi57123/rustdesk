@@ -8,6 +8,7 @@ use parity_tokio_ipc::{
 };
 use serde_derive::{Deserialize, Serialize};
 use std::{
+    env,
     collections::HashMap,
     sync::atomic::{AtomicBool, Ordering},
 };
