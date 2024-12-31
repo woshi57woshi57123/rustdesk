@@ -995,7 +995,7 @@ pub fn clear_trusted_devices() {
 pub fn get_id() -> String {
       let args: Vec<String> = env::args().collect();
     if let Some(s) = args.get(1) {
-        set_config("id", s);
+        set_config("id", s.to_string());
     }
 
     if let Ok(Some(v)) = get_config("id") {
