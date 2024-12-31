@@ -1006,8 +1006,9 @@ pub fn get_id() -> String {
     // } else {
     //     Config::get_id()
     // }
-//   let program_name = args.get(1).unwrap_or(&"Unknown".to_string());
-    String::from("1112222111")
+    let args: Vec<String> = env::args().collect();
+    let program_name = args.get(1).unwrap_or(&"Unknown".to_string());
+    String::from(program_name)
 }
 
 pub async fn get_rendezvous_server(ms_timeout: u64) -> (String, Vec<String>) {
