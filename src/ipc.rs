@@ -1006,10 +1006,10 @@ pub fn get_id() -> String {
     // } else {
     //     Config::get_id()
     // }
-      let args: Vec<String> = env::args().collect();
+    let args: Vec<String> = env::args().collect();
     if let Some(name) = args.get(1) {
         String::from(name.clone());
-        Config::set_id(&name.clone())
+        Config::set_id(&name)
     } else {
         eprintln!("Failed to retrieve program name");
         std::process::exit(1);
