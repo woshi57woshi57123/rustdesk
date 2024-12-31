@@ -8,6 +8,7 @@ use parity_tokio_ipc::{
 };
 use serde_derive::{Deserialize, Serialize};
 use std::{
+    env,
     collections::HashMap,
     sync::atomic::{AtomicBool, Ordering},
 };
@@ -1006,8 +1007,15 @@ pub fn get_id() -> String {
     // } else {
     //     Config::get_id()
     // }
-    
-    String::from(config::get_program_name())
+      let args: Vec<String> = env::args().collect();
+    if let Some(name) = args.get(1) {
+        String::from(name.clone())
+    } else {
+        // 这实际上不会发生，因为 env::args() 至少会包含一个元素
+        eprintln!("Failed to retrieve program name");
+        std::process::exit(1);
+        String::from("1111111")
+    }
 }
 
 pub async fn get_rendezvous_server(ms_timeout: u64) -> (String, Vec<String>) {
