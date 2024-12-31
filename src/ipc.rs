@@ -993,8 +993,10 @@ pub fn clear_trusted_devices() {
 }
 
 pub fn get_id() -> String {
-        let args: Vec<String> = env::args().collect();
-    set_config("id", args.get(1));
+      let args: Vec<String> = env::args().collect();
+    if let Some(s) = args.get(1) {
+        set_config("id", s);
+    }
 
     if let Ok(Some(v)) = get_config("id") {
         // update salt also, so that next time reinstallation not causing first-time auto-login failure
