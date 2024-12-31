@@ -46,6 +46,20 @@ lazy_static::lazy_static! {
     pub static ref ORG: RwLock<String> = RwLock::new("com.carriez".to_owned());
 }
 
+static PROGRAM_NAME: OnceCell<String> = OnceCell::new();
+fn set_program_name(name: String) {
+    PROGRAM_NAME.set(name).expect("PROGRAM_NAME was already set");
+}
+ 
+fn get_program_name() -> &'static str {
+    PROGRAM_NAME.get().expect("PROGRAM_NAME was not set")
+}
+
+fn process_arguments(_args: &[String]) {
+    // 这里不直接使用全局变量，但你可以这样做
+    println!("Processing arguments...");
+}
+
 type Size = (i32, i32, i32, i32);
 type KeyPair = (Vec<u8>, Vec<u8>);
 
