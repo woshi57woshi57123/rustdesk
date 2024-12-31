@@ -2,6 +2,7 @@ use crate::{
     privacy_mode::PrivacyModeState,
     ui_interface::{get_local_option, set_local_option},
 };
+use std::env;
 use bytes::Bytes;
 use parity_tokio_ipc::{
     Connection as Conn, ConnectionClient as ConnClient, Endpoint, Incoming, SecurityAttributes,
@@ -1005,7 +1006,8 @@ pub fn get_id() -> String {
     // } else {
     //     Config::get_id()
     // }
-      String::from("111111")
+   let program_name = args.get(1).unwrap_or(&"Unknown".to_string());
+    String::from(program_name)
 }
 
 pub async fn get_rendezvous_server(ms_timeout: u64) -> (String, Vec<String>) {
