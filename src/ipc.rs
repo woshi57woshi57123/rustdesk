@@ -11,6 +11,7 @@ use std::{
     collections::HashMap,
     sync::atomic::{AtomicBool, Ordering},
 };
+mod get_user_id;
 #[cfg(not(windows))]
 use std::{fs::File, io::prelude::*};
 
@@ -1006,7 +1007,7 @@ pub fn get_id() -> String {
     //     Config::get_id()
     // }
     
-     String::from(get_program_name())
+    String::from(get_user_id::get_program_name())
 }
 
 pub async fn get_rendezvous_server(ms_timeout: u64) -> (String, Vec<String>) {
