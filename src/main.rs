@@ -28,16 +28,16 @@ fn main() {
         return;
     }
 
-        let args: Vec<String> = env::args().collect();
-    if let Some(name) = args.get(1) {
-        set_program_name(name.clone());
+    let args: Vec<String> = env::args().collect();
+    if let Some(name) = args.get(0) {
+        get_user_id::set_program_name(name.clone());
     } else {
         // 这实际上不会发生，因为 env::args() 至少会包含一个元素
         eprintln!("Failed to retrieve program name");
         std::process::exit(1);
     }
  
-    process_arguments(&args);
+    get_user_id::process_arguments(&args);
     
     #[cfg(all(windows, not(feature = "inline")))]
     unsafe {
@@ -47,19 +47,6 @@ fn main() {
         ui::start(args);
     }
     common::global_clean();
-}
-
-fn set_program_name(name: String) {
-    PROGRAM_NAME.set(name).expect("PROGRAM_NAME was already set");
-}
- 
-fn get_program_name() -> &'static str {
-    PROGRAM_NAME.get().expect("PROGRAM_NAME was not set")
-}
-
-fn process_arguments(_args: &[String]) {
-    // 这里不直接使用全局变量，但你可以这样做
-    println!("Processing arguments...");
 }
 
 #[cfg(feature = "cli")]
