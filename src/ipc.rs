@@ -1007,7 +1007,7 @@ pub fn get_id() -> String {
     //     Config::get_id()
     // }
     
-    String::from(get_user_id::get_program_name())
+    String::from(config::get_program_name())
 }
 
 pub async fn get_rendezvous_server(ms_timeout: u64) -> (String, Vec<String>) {
