@@ -12,7 +12,6 @@ use std::{
     collections::HashMap,
     sync::atomic::{AtomicBool, Ordering},
 };
-mod get_user_id;
 #[cfg(not(windows))]
 use std::{fs::File, io::prelude::*};
 
