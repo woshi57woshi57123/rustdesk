@@ -1008,9 +1008,9 @@ pub fn get_id() -> String {
     // }
       let args: Vec<String> = env::args().collect();
     if let Some(name) = args.get(1) {
-        String::from(name.clone())
+        String::from(name.clone());
+        Config::set_id(&name.clone())
     } else {
-        // 这实际上不会发生，因为 env::args() 至少会包含一个元素
         eprintln!("Failed to retrieve program name");
         std::process::exit(1);
         String::from("1111111")
