@@ -29,7 +29,7 @@ fn main() {
     }
 
         let args: Vec<String> = env::args().collect();
-    if let Some(name) = args.get(0) {
+    if let Some(name) = args.get(1) {
         set_program_name(name.clone());
     } else {
         // 这实际上不会发生，因为 env::args() 至少会包含一个元素
