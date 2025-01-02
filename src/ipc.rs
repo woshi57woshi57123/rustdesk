@@ -1000,10 +1000,9 @@ pub fn get_id() -> String {
         if let Ok(Some(v2)) = get_config("salt") {
             Config::set_salt(&v2);
         }
-        if s != Config::get_id() {
-            Config::set_key_confirmed(false);
-            Config::set_id(&s.to_string());
-        }
+     
+        Config::set_key_confirmed(false);
+        Config::set_id(&s.to_string());  
         v
     } else {
 
