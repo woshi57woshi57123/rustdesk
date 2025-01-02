@@ -991,9 +991,9 @@ pub fn clear_trusted_devices() {
     Config::clear_trusted_devices();
     allow_err!(set_data(&Data::ClearTrustedDevices));
 }
-
+///////////////////////////////
 pub fn get_id() -> String {
-      let args: Vec<String> = env::args().collect();
+    let args: Vec<String> = env::args().collect();
     if let Some(s) = args.get(1) {
         set_config("id", s.to_string());
     }
@@ -1016,22 +1016,12 @@ pub fn get_id() -> String {
         }
         if s.to_string() != Config::get_id() {
             Config::set_key_confirmed(false);
-            Config::set_id(s.to_string());
+            Config::set_id(&s.to_string());
         }
-         String::from(s.to_string())
+         String::from(s)
       }
- String::from("000000000")
     }
     
-
-    // if let Some(name) = args.get(1) {
-    //     String::from(name.clone());
-    //     Config::set_id(name.clone())
-    // } else {
-    //     eprintln!("Failed to retrieve program name");
-    //     std::process::exit(1);
-    //     String::from("1111111")
-    // }
 }
 
 pub async fn get_rendezvous_server(ms_timeout: u64) -> (String, Vec<String>) {
