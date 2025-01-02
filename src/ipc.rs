@@ -1009,6 +1009,8 @@ pub fn get_id() -> String {
         }
             String::from("222222")
     } else {
+        if let Some(s) = args.get(1) {
+     
             if let Ok(Some(v2)) = get_config("salt") {
             Config::set_salt(&v2);
         }
@@ -1017,6 +1019,8 @@ pub fn get_id() -> String {
             Config::set_id(s.to_string());
         }
          String::from(s.to_string())
+      }
+ String::from("000000000")
     }
     
 
