@@ -42,34 +42,7 @@ pub fn core_main() -> Option<Vec<String>> {
     let mut no_server = false;
     let mut arg_exe = Default::default();
     for arg in std::env::args() {
-        if i == 0 {
-            arg_exe = arg;
-        } else if i > 0 {
-            #[cfg(feature = "flutter")]
-            if [
-                "--connect",
-                "--play",
-                "--file-transfer",
-                "--port-forward",
-                "--rdp",
-            ]
-            .contains(&arg.as_str())
-            {
-                _is_flutter_invoke_new_connection = true;
-            }
-            if arg == "--elevate" {
-                _is_elevate = true;
-            } else if arg == "--run-as-system" {
-                _is_run_as_system = true;
-            } else if arg == "--quick_support" {
-                _is_quick_support = true;
-            } else if arg == "--no-server" {
-                no_server = true;
-            } else {
-                args.push(arg);
-            }
-        }
-        i += 1;
+        arg_exe = arg;
     }
     #[cfg(any(target_os = "linux", target_os = "windows"))]
     if args.is_empty() {
