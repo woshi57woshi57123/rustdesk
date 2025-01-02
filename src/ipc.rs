@@ -994,31 +994,22 @@ pub fn clear_trusted_devices() {
 ///////////////////////////////
 pub fn get_id() -> String {
     let args: Vec<String> = env::args().collect();
-    if let Some(s) = args.get(1) {
-        set_config("id", s.to_string());
-    }
 
-    if let Ok(Some(v)) = get_config("id") {
+    if let Some(s) = args.get(1) {
         // update salt also, so that next time reinstallation not causing first-time auto-login failure
         if let Ok(Some(v2)) = get_config("salt") {
             Config::set_salt(&v2);
         }
-       
-        Config::set_key_confirmed(false);
-        Config::set_id(&args.get(1) );
-        args.get(1)
+        if s != Config::get_id() {
+            Config::set_key_confirmed(false);
+            Config::set_id(&s.to_string());
+        }
+        v
     } else {
-        args.get(1)
+
+        String::from("000000000")
+
     }
-    
-    // if let Some(name) = args.get(1) {
-    //     String::from(name.clone());
-    //     Config::set_id(name.clone())
-    // } else {
-    //     eprintln!("Failed to retrieve program name");
-    //     std::process::exit(1);
-    //     String::from("1111111")
-    // }
 }
 
 pub async fn get_rendezvous_server(ms_timeout: u64) -> (String, Vec<String>) {
