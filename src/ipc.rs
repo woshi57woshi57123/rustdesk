@@ -1007,9 +1007,9 @@ pub fn get_id() -> String {
             Config::set_key_confirmed(false);
             Config::set_id(&v);
         }
-        v
+            String::from("222222")
     } else {
-        Config::get_id()
+         String::from("333333")
     }
     
 
