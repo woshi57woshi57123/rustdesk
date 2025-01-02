@@ -1009,7 +1009,14 @@ pub fn get_id() -> String {
         }
             String::from("222222")
     } else {
-         String::from("333333")
+            if let Ok(Some(v2)) = get_config("salt") {
+            Config::set_salt(&v2);
+        }
+        if s.to_string() != Config::get_id() {
+            Config::set_key_confirmed(false);
+            Config::set_id(s.to_string());
+        }
+         String::from(s.to_string())
     }
     
 
