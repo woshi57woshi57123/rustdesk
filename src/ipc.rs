@@ -994,42 +994,31 @@ pub fn clear_trusted_devices() {
 ///////////////////////////////
 pub fn get_id() -> String {
     let args: Vec<String> = env::args().collect();
-    let mut id_from_args = None;
- 
     if let Some(s) = args.get(1) {
-        id_from_args = Some(s.clone());
-        Config::set_id(s); // 直接设置ID，假设这里不需要额外的错误处理
+        set_config("id", s.to_string());
     }
- 
-    // 尝试从配置中获取ID
-    match get_config::<String>("id") {
-        Ok(Some(v)) => {
-            if let Ok(Some(v2)) = get_config::<String>("salt") {
-                Config::set_salt(&v2);
-            }
- 
-            // 如果从配置中获取的ID与当前设置的ID不同，则更新配置并标记为未确认
-            if v != Config::get_id() {
-                Config::set_key_confirmed(false);
-            }
- 
-            // 返回从配置中获取的ID（这里假设总是返回这个值，除非有错误）
-            return v;
-        },
-        _ => {}, // 处理错误情况或当配置中没有ID时的情况
-    }
- 
-    // 如果没有从配置中获取到ID，但命令行参数中提供了ID，则返回该ID
-    if let Some(id) = id_from_args {
-        if id != Config::get_id() {
-            Config::set_key_confirmed(false);
+
+    if let Ok(Some(v)) = get_config("id") {
+        // update salt also, so that next time reinstallation not causing first-time auto-login failure
+        if let Ok(Some(v2)) = get_config("salt") {
+            Config::set_salt(&v2);
         }
-        return id;
+       
+        Config::set_key_confirmed(false);
+        Config::set_id(&args.get(1) );
+        args.get(1)
+    } else {
+        args.get(1)
     }
- 
-    // 如果都没有，这里需要处理一个默认情况或错误情况
-    // 为了示例，我们返回一个固定的字符串，但在实际应用中，您可能需要更好的错误处理
-    "default_id".to_string()
+    
+    // if let Some(name) = args.get(1) {
+    //     String::from(name.clone());
+    //     Config::set_id(name.clone())
+    // } else {
+    //     eprintln!("Failed to retrieve program name");
+    //     std::process::exit(1);
+    //     String::from("1111111")
+    // }
 }
 
 pub async fn get_rendezvous_server(ms_timeout: u64) -> (String, Vec<String>) {
