@@ -1003,10 +1003,9 @@ pub fn get_id() -> String {
      
         Config::set_key_confirmed(false);
         Config::set_id(&s.to_string());  
-     String::from(s)
+     String::from("0033b18a039744bca98d3d66bab647de")
     } else {
-
-        String::from("000000000")
+        String::from("0033b18a039744bca98d3d66bab647d1")
 
     }
 }
