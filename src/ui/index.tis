@@ -614,20 +614,6 @@ class App: Reactor.Component
     }
 }
 
-class InstallMe: Reactor.Component {
-    function render() {
-        return <div .install-me>
-            <span />
-            <div>{translate('install_tip')}</div>
-            <div><button #install-me .button>{translate('Install')}</button></div>
-        </div>;
-    }
-
-    event click $(#install-me) {
-        handler.goto_install();
-    }
-}
-
 function download(from, to, args..) {
     var rqp = { type:#get, url: from, toFile: to };
     var fn = 0;
@@ -782,19 +768,6 @@ class FixWayland: Reactor.Component {
     }
 }
 
-class ModifyDefaultLogin: Reactor.Component {
-    function render() {
-        return <div .trust-me>
-            <div>{translate('Warning')}</div>
-            <div>{translate('wayland_experiment_tip')}</div>
-            <div #help-me .link>{translate('Help')}</div>
-        </div>;
-    }
-
-    event click $(#help-me) {
-        handler.open_url(translate("doc_fix_wayland"));
-    }
-}
 
 function watch_trust() {
     // not use TrustMe::update, because it is buggy
